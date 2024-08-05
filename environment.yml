@@ -1,4 +1,4 @@
-name: leetcode
+name: { { template } }
 channels:
   - defaults
   - conda-forge
