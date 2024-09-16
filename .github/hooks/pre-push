@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Get the name of the branch being pushed
+branch=$(git symbolic-ref --short HEAD)
+
+# Prevent pushing to the main branch
+if [ "$branch" = "main" ]; then
+  echo "You cannot push to the 'main' branch."
+  exit 1
+fi
