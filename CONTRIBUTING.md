@@ -8,7 +8,6 @@ To maintain a consistent code quality, we follow specific coding standards and t
 
 - PEP 8 Compliance: Code should adhere to the PEP 8 style guide. Use `flake8` as a linter to check for style violations.
 - Line Length: Maximum line length is set to **90 characters** as per our `.flake8` and `pyproject.toml` configurations.
-```
 
 ### Code Formatting
 
