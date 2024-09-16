@@ -25,6 +25,7 @@ jobs:
 
       - name: Run Pytest with Coverage and Capture Report
         id: pytest
+        shell: bash -l {0}
         run: |
           # Run pytest with coverage and use tee to capture real-time output and save to file
           pytest --cov=. --cov-report=term-missing | tee coverage_report.txt
