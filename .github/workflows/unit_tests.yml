@@ -18,12 +18,12 @@ jobs:
 
       - uses: conda-incubator/setup-miniconda@v3
         with:
-          activate-environment: your-env-name   # Replace with your environment name
+          activate-environment: your-env-name  # Replace with your environment name
           environment-file: environment.yml
           python-version: 3.12
           auto-activate-base: false
 
-            - name: Run Pytest with Coverage and Capture Report
+      - name: Run Pytest with Coverage and Capture Report
         id: pytest
         run: |
           # Run pytest with coverage and use tee to capture real-time output and save to file
