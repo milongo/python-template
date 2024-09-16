@@ -1,0 +1,12 @@
+name: { { template } }
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pylint=3.2.2
+  - flake8=7.0.0
+  - isort=5.13.2
+  - black=24.4.2
+  - pytest=7.4.4
+  - pytest-cov=4.1.0
