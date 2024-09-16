@@ -1,0 +1,51 @@
+name: Run pytest unit tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          activate-environment: your-env-name  # Replace with your environment name
+          environment-file: environment.yml
+          python-version: 3.12
+          auto-activate-base: false
+
+      - name: Run Pytest with Coverage and Capture Report
+        id: pytest
+        shell: bash -l {0}
+        run: |
+          # Run pytest with coverage and use tee to capture real-time output and save to file
+          pytest --cov=. --cov-report=term-missing | tee coverage_report.txt
+
+      - name: Check Per-File Coverage
+        run: |
+          required_coverage=95
+
+          # Extract the per-file coverage percentages from the saved report
+          while IFS= read -r line; do
+            if [[ $line =~ ([0-9]+)%\s+\([0-9]+/[0-9]+\)\s+(.+) ]]; then
+              coverage=${BASH_REMATCH[1]}
+              filename=${BASH_REMATCH[2]}
+
+              # Check if any file has coverage below the threshold
+              if (( coverage < required_coverage )); then
+                echo "Error: $filename has ${coverage}% coverage, which is below the required ${required_coverage}%."
+                exit 1
+              fi
+            fi
+          done < <(grep -E '^[^ ]+ +[0-9]+%' coverage_report.txt)
+
+          echo "All files have at least ${required_coverage}% coverage."
